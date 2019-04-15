@@ -26,7 +26,7 @@ public class RedisExample {
 		ConcurrentMap<String,Object> map = redisson.getMap("FirstMap");
 		map.put("sss", "ÄĞ");
 		map.put("www","Å®");
-		map.put("eee","Å®");
+		map.put("eee","Å®");//²âÊÔgit
 
 		ConcurrentMap resultMap =redisson.getMap("FirstMap");
 		System.out.println("resultMap=" + resultMap.keySet());
