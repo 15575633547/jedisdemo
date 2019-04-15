@@ -20,7 +20,10 @@ public class RedisExample {
 		config.setConnectionPoolSize(10);
 		config.addAddress("127.0.0.1:6379");
 		Redisson redisson = Redisson.create(config);
-		System.out.println("redis连接成功！");
+		System.out.println("redis连接成功！");//TODO
+
+	//	for(){}
+
 
 		//1.测试concurrentMap,put方法的时候就会同步到redis中
 		ConcurrentMap<String,Object> map = redisson.getMap("FirstMap");
