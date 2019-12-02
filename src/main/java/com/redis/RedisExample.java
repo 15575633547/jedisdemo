@@ -24,7 +24,6 @@ public class RedisExample {
 
 		//测试
 
-
 		//1.测试concurrentMap,put方法的时候就会同步到redis中
 		ConcurrentMap<String,Object> map = redisson.getMap("FirstMap");
 		map.put("sss", "男");

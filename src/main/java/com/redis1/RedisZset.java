@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Redis setÊı¾İÀàĞÍ
+ * Redis setæ•°æ®ç±»å‹
  *
  */
 public class RedisZset {
@@ -20,27 +20,80 @@ public class RedisZset {
 		scoreMembers.put("aaa", 1001.0);
 		scoreMembers.put("bbb", 1002.0);
 		scoreMembers.put("ccc", 1003.0);
-		// Ìí¼ÓÊı¾İ
+		// æ·»åŠ æ•°æ®
 		jedis.zadd(key, 1004.0, "ddd");
 		jedis.zadd(key, scoreMembers);
-		// »ñÈ¡Ò»¸öÅÅĞòµÄ¼¯ºÏÖĞµÄ³ÉÔ±ÊıÁ¿
+		// è·å–ä¸€ä¸ªæ’åºçš„é›†åˆä¸­çš„æˆå‘˜æ•°é‡
 		System.out.println(jedis.zcard(key));
-		// ·µ»ØµÄ³ÉÔ±ÔÚÖ¸¶¨·¶Î§ÄÚµÄÓĞĞò¼¯ºÏ£¬ÒÔ0±íÊ¾ÓĞĞò¼¯µÚÒ»¸ö³ÉÔ±£¬ÒÔ1±íÊ¾ÓĞĞò¼¯µÚ¶ş¸ö³ÉÔ±£¬ÒÔ´ËÀàÍÆ¡£
-		// ¸ºÊıÏÂ±ê£¬ÒÔ-1±íÊ¾×îºóÒ»¸ö³ÉÔ±£¬-2±íÊ¾µ¹ÊıµÚ¶ş¸ö³ÉÔ±
+		// è¿”å›çš„æˆå‘˜åœ¨æŒ‡å®šèŒƒå›´å†…çš„æœ‰åºé›†åˆï¼Œä»¥0è¡¨ç¤ºæœ‰åºé›†ç¬¬ä¸€ä¸ªæˆå‘˜ï¼Œä»¥1è¡¨ç¤ºæœ‰åºé›†ç¬¬äºŒä¸ªæˆå‘˜ï¼Œä»¥æ­¤ç±»æ¨ã€‚
+		// è´Ÿæ•°ä¸‹æ ‡ï¼Œä»¥-1è¡¨ç¤ºæœ€åä¸€ä¸ªæˆå‘˜ï¼Œ-2è¡¨ç¤ºå€’æ•°ç¬¬äºŒä¸ªæˆå‘˜
 		Set<String> coll = jedis.zrange(key, 0, -1);
 		System.out.println(coll);
-		// ·µ»ØµÄ³ÉÔ±ÔÚÖ¸¶¨·¶Î§ÄÚµÄÄæĞò¼¯ºÏ
+		// è¿”å›çš„æˆå‘˜åœ¨æŒ‡å®šèŒƒå›´å†…çš„é€†åºé›†åˆ
 		coll = jedis.zrevrange(key, 0, -1);
 		System.out.println(coll);
-		// ÔªËØÏÂ±ê
+		// å…ƒç´ ä¸‹æ ‡
 		System.out.println(jedis.zscore(key, "bbb"));
-		// É¾³ıÔªËØ
+		// åˆ é™¤å…ƒç´ 
 		System.out.println(jedis.zrem(key, "aaa"));
 		System.out.println(jedis.zrange(key, 0, -1));
-		// ¸ø¶¨Öµ·¶Î§ÄÚµÄ³ÉÔ±Êı
+		// ç»™å®šå€¼èŒƒå›´å†…çš„æˆå‘˜æ•°
 		System.out.println(jedis.zcount(key, 1002.0, 1003.0));
 	}
 
+//	private final int REDIS_DB = 5;//éœ€è¦ç‰¹æ®ŠæŒ‡å®šçš„DB
+//	@Value("${spring.redis.database}")
+//	private int redisDbDefault;//é»˜è®¤çš„é…ç½®
+//	private RedisTemplate redisTemplate;
+//	/**
+//	 * å°†æ•°æ®å­˜å‚¨åˆ°æŒ‡å®šDB
+//	 *
+//	 * @param key   è¦å­˜åˆ°redisçš„key
+//	 * @param value è¦å­˜åˆ°redisçš„å€¼
+//	 */
+//	private void setInDB5(String key, JSONArray value) {
+//		synchronized (redisTemplate) {
+//			try {
+//				changeRedisDB(REDIS_DB);
+//				redisTemplate.opsForValue().set(key, value);
+//			} catch (Exception e) {
+//			} finally {
+//				changeRedisDB(redisDbDefault);
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * å°†æ•°æ®å­˜å‚¨åˆ°æŒ‡å®šDB
+//	 *
+//	 * @param key è¦å–å€¼redisçš„key
+//	 */
+//	private JSONArray getInDB5(String key) {
+//		JSONArray value = new JSONArray();
+//		synchronized (redisTemplate) {
+//			try {
+//				changeRedisDB(REDIS_DB);
+//				value = JSONArray.fromObject(redisTemplate.opsForValue().get(key));
+//			} catch (Exception e) {
+//			} finally {
+//				changeRedisDB(redisDbDefault);
+//			}
+//		}
+//		return value;
+//	}
+//
+//	/**
+//	 * å°†redisåˆ‡æ¢åˆ°DB5ï¼Œä½¿ç”¨åä¸€å®šè¦åˆ‡å›æ¥ï¼ˆæ­¤æ–¹æ³•ä¸å…¬ç”¨ï¼‰
+//	 *
+//	 * @return
+//	 */
+//	private RedisTemplate changeRedisDB(int dbNum) {
+//		JedisConnectionFactory jedisConnectionFactory = (JedisConnectionFactory) redisTemplate.getConnectionFactory();
+//		jedisConnectionFactory.setDatabase(dbNum);
+//		redisTemplate.setConnectionFactory(jedisConnectionFactory);
+//		return redisTemplate;
+//
+//	}
 
 
 

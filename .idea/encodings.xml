@@ -8,7 +8,6 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/redis1/RedisPing.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/redis1/RedisSet.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/redis1/RedisString.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/redis1/RedisZset.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/redis1/RedisZset.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/redis1/RedisZset.java" charset="UTF-8" />
   </component>
 </project>
