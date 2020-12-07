@@ -12,7 +12,7 @@ public class RedisSet {
 
 	public static void main(String[] args) {
 		Jedis jedis = new Jedis("127.0.0.1",6379);
-		
+
 		//set方法用于向redis数据库中添加设置数据
 		jedis.set("k1", "v1");
 		jedis.set("k2", "v2");
